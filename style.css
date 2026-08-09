@@ -1,0 +1,339 @@
+:root {
+  --bg: #0a0a0a;
+  --display-fg: #ffffff;
+  --history-fg: #8e8e93;
+  --key-num: #2c2c2e;
+  --key-num-active: #4d4d4f;
+  --key-fn: #a5a5a5;
+  --key-fn-active: #d1d1d1;
+  --key-op: #ff9f0a;
+  --key-op-active: #ffc266;
+  --key-op-fg: #ffffff;
+  --sheet-bg: #111113;
+  --sheet-fg: #f2f2f2;
+  --field-bg: #1c1c1e;
+  --accent: #ff9f0a;
+  --danger: #ff3b30;
+  --success: #34c759;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  background: var(--bg);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  overscroll-behavior: none;
+}
+
+button {
+  font-family: inherit;
+}
+
+/* ============ CALCULATOR ============ */
+.calculator {
+  height: 100dvh;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: env(safe-area-inset-top, 0) 12px 18px;
+}
+
+.display {
+  padding: 12px 18px 18px;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 30vh;
+}
+
+.display-history {
+  color: var(--history-fg);
+  font-size: clamp(18px, 5vw, 26px);
+  font-weight: 300;
+  min-height: 1.4em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.display-current {
+  color: var(--display-fg);
+  font-size: clamp(48px, 15vw, 88px);
+  font-weight: 300;
+  line-height: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  letter-spacing: -0.5px;
+}
+
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.key {
+  border: none;
+  border-radius: 999px;
+  aspect-ratio: 1 / 1;
+  font-size: clamp(24px, 7vw, 34px);
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  transition: filter 0.08s ease, transform 0.05s ease;
+}
+
+.key:active {
+  transform: scale(0.94);
+  filter: brightness(1.25);
+}
+
+.key--num {
+  background: var(--key-num);
+  color: #fff;
+}
+
+.key--fn {
+  background: var(--key-fn);
+  color: #000;
+}
+
+.key--op {
+  background: var(--key-op);
+  color: var(--key-op-fg);
+}
+
+.key--equals {
+  background: var(--key-op);
+}
+
+.key--zero {
+  grid-column: span 2;
+  aspect-ratio: auto;
+  justify-content: flex-start;
+  padding-left: 28px;
+}
+
+@media (min-width: 481px) {
+  .calculator { justify-content: center; gap: 24px; }
+}
+
+/* ============ SHEETS (settings / history / onboarding) ============ */
+.sheet {
+  position: fixed;
+  inset: 0;
+  background: var(--sheet-bg);
+  color: var(--sheet-fg);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  animation: sheet-in 0.22s ease;
+}
+
+@keyframes sheet-in {
+  from { transform: translateY(16px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.sheet-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 16px 12px;
+  border-bottom: 1px solid #232326;
+}
+
+.sheet-header h1 {
+  font-size: 17px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.sheet-spacer { width: 44px; }
+
+.sheet-close {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 16px;
+  padding: 6px 4px;
+  cursor: pointer;
+}
+
+.sheet-body {
+  padding: 20px 20px 40px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.sheet-body--center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+}
+
+.sheet-intro {
+  color: #aeaeb2;
+  font-size: 14.5px;
+  line-height: 1.5;
+  margin: 0 0 22px;
+}
+
+.field {
+  display: block;
+  margin-bottom: 16px;
+}
+
+.field span {
+  display: block;
+  font-size: 13px;
+  color: #9c9ca1;
+  margin-bottom: 6px;
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  background: var(--field-bg);
+  border: 1px solid #2c2c2e;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+  padding: 12px 14px;
+  outline: none;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.field input:focus,
+.field textarea:focus {
+  border-color: var(--accent);
+}
+
+.save-btn {
+  width: 100%;
+  background: var(--accent);
+  color: #1a1a1a;
+  border: none;
+  border-radius: 12px;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+.save-btn:active { filter: brightness(0.92); }
+
+.save-confirm {
+  text-align: center;
+  color: var(--success);
+  font-size: 13px;
+  height: 16px;
+  margin: 10px 0 0;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.save-confirm.show { opacity: 1; }
+
+.divider {
+  height: 1px;
+  background: #232326;
+  margin: 28px 0 20px;
+}
+
+.ghost-btn {
+  width: 100%;
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid #2c2c2e;
+  border-radius: 12px;
+  padding: 13px;
+  font-size: 15px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.hint {
+  color: #6e6e73;
+  font-size: 12.5px;
+  line-height: 1.5;
+  text-align: center;
+  margin-top: 18px;
+}
+
+.history-list {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.history-item {
+  background: var(--field-bg);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 13.5px;
+  color: #d1d1d3;
+}
+
+.history-item strong {
+  display: block;
+  color: #fff;
+  font-size: 14px;
+  margin-bottom: 3px;
+}
+
+.onboard-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+.onboard-steps {
+  color: #cfcfd2;
+  font-size: 14.5px;
+  line-height: 1.7;
+  padding-left: 20px;
+  margin: 4px 0 26px;
+}
+
+/* ============ TOAST ============ */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 30px;
+  transform: translateX(-50%) translateY(20px);
+  background: #1c1c1e;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 13.5px;
+  border: 1px solid #2c2c2e;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 50;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>Calculator</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ================= CALCULATOR SCREEN ================= -->
+  <main class="calculator" id="calculatorView">
+    <div class="display" id="display">
+      <div class="display-history" id="displayHistory"></div>
+      <div class="display-current" id="displayCurrent">0</div>
+    </div>
+
+    <div class="keypad">
+      <button class="key key--fn" data-action="clear" id="clearBtn">AC</button>
+      <button class="key key--fn" data-action="negate">+/-</button>
+      <button class="key key--fn" data-action="percent">%</button>
+      <button class="key key--op" data-action="divide">÷</button>
+
+      <button class="key key--num" data-num="7">7</button>
+      <button class="key key--num" data-num="8">8</button>
+      <button class="key key--num" data-num="9">9</button>
+      <button class="key key--op" data-action="multiply">×</button>
+
+      <button class="key key--num" data-num="4">4</button>
+      <button class="key key--num" data-num="5">5</button>
+      <button class="key key--num" data-num="6">6</button>
+      <button class="key key--op" data-action="subtract">−</button>
+
+      <button class="key key--num" data-num="1">1</button>
+      <button class="key key--num" data-num="2">2</button>
+      <button class="key key--num" data-num="3">3</button>
+      <button class="key key--op" data-action="add">+</button>
+
+      <button class="key key--num key--zero" data-num="0" id="zeroBtn">0</button>
+      <button class="key key--num" data-action="decimal">.</button>
+      <button class="key key--op key--equals" data-action="equals" id="equalsBtn">=</button>
+    </div>
+  </main>
+
+  <!-- ================= SETUP / SETTINGS SCREEN ================= -->
+  <section class="sheet" id="setupView" hidden>
+    <div class="sheet-header">
+      <button class="sheet-close" id="setupClose">Done</button>
+      <h1>Silent Signal Setup</h1>
+      <span class="sheet-spacer"></span>
+    </div>
+
+    <div class="sheet-body">
+      <p class="sheet-intro">This screen is hidden behind the calculator. Set your secret code and emergency contact below — only you know how to get here.</p>
+
+      <label class="field">
+        <span>Secret code (4–6 digits, entered on the calculator then press =)</span>
+        <input type="tel" id="pinInput" inputmode="numeric" maxlength="6" placeholder="e.g. 1199" />
+      </label>
+
+      <label class="field">
+        <span>Emergency contact name</span>
+        <input type="text" id="contactNameInput" placeholder="e.g. Mom" />
+      </label>
+
+      <label class="field">
+        <span>Emergency contact phone number</span>
+        <input type="tel" id="contactPhoneInput" placeholder="e.g. +91 98765 43210" />
+      </label>
+
+      <label class="field">
+        <span>Alert message</span>
+        <textarea id="messageInput" rows="3" placeholder="I need help. This is my current location:"></textarea>
+      </label>
+
+      <button class="save-btn" id="saveSettings">Save Settings</button>
+      <p class="save-confirm" id="saveConfirm">Saved.</p>
+
+      <div class="divider"></div>
+
+      <button class="ghost-btn" id="viewHistoryBtn">View alert history</button>
+      <p class="hint">Tip: to reopen this setup screen later, tap "AC" 5 times quickly.</p>
+    </div>
+  </section>
+
+  <!-- ================= HISTORY SCREEN ================= -->
+  <section class="sheet" id="historyView" hidden>
+    <div class="sheet-header">
+      <button class="sheet-close" id="historyBack">Back</button>
+      <h1>Alert History</h1>
+      <span class="sheet-spacer"></span>
+    </div>
+    <div class="sheet-body">
+      <p class="sheet-intro">A private log of every time Silent Signal was triggered on this device. Only visible here.</p>
+      <ul class="history-list" id="historyList"></ul>
+      <p class="hint" id="historyEmpty">No alerts triggered yet.</p>
+    </div>
+  </section>
+
+  <!-- ================= FIRST-RUN ONBOARDING ================= -->
+  <section class="sheet" id="onboardView" hidden>
+    <div class="sheet-body sheet-body--center">
+      <h1 class="onboard-title">Welcome to Silent Signal</h1>
+      <p class="sheet-intro">A calculator that quietly calls for help when you need it — no one watching your screen will know.</p>
+      <ol class="onboard-steps">
+        <li>Set a secret code and an emergency contact.</li>
+        <li>If you're ever in danger, open the calculator and type your code, then press "=".</li>
+        <li>Your location is sent to your contact instantly — the calculator keeps working normally the whole time.</li>
+      </ol>
+      <button class="save-btn" id="onboardStart">Set up my code</button>
+      <button class="ghost-btn" id="onboardSkip">Skip for now</button>
+    </div>
+  </section>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
