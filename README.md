@@ -4,6 +4,11 @@
 
 Built for Hack Devengers 1.0 — Open Innovation Track.
 
+🔗 **Live demo:** https://kishorereddycse860-hub.github.io/-silent-signal-/
+📦 **Repo:** https://github.com/kishorereddycse860-hub/-silent-signal-
+
+> Open the live link on your phone, tap "Set up my code" to set a secret PIN and emergency contact, then trigger it by typing that PIN on the calculator and pressing `=`.
+
 ## The Problem
 
 When someone is in danger — an unsafe ride, harassment, a threatening situation at home or in public — pulling out a phone and visibly calling for help can escalate the risk. Most safety apps look like safety apps, which is exactly why they're hard to use discreetly: an attacker who sees a bright red "SOS" screen knows immediately what's happening.
@@ -57,7 +62,7 @@ npx serve .
 ## Project Structure
 
 ```
-silent-signal/
+-silent-signal-/
 ├── index.html      # Calculator UI + hidden settings/history/onboarding screens
 ├── css/style.css    # Realistic calculator styling, dark theme
 ├── js/app.js        # Calculator logic, secret-code detection, alert trigger
